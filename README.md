@@ -15,3 +15,4 @@ npm run start
 ## Integrantes
 - Agustin Cejas
 - Diego Levy
+- Marianela Martinez 
