@@ -16,3 +16,4 @@ npm run start
 - Agustin Cejas
 - Diego Levy
 - Marianela Martinez 
+- Victoria Miranda
