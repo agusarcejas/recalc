@@ -19,3 +19,13 @@ describe('Add', () => {
         expect(core.add(6, 4)).toBe(10); 
     })
 })
+
+describe('Div', () => {
+    test('Deberia 4 / 2 = 2', () => {
+        expect(core.div(4, 2)).toBe(2);
+    })
+
+    test('Deberia 6 / 0 = error', () => {
+        expect(core.div(6, 0)).toThrow('No se puede dividir por cero');
+    })
+})
