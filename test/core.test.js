@@ -39,3 +39,13 @@ describe('Pow', () => {
         expect(core.pow(6, 0)).toBe(1);
     })
 })
+
+describe('Mul', () => {
+    test('Deberia 4 * 2 = 8', () => {
+        expect(core.mul(4, 2)).toBe(8);
+    })
+
+    test('Deberia 6 * 0 = 0', () => {
+        expect(core.mul(6, 0)).toBe(0);
+    })
+})
