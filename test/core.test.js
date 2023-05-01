@@ -29,3 +29,13 @@ describe('Div', () => {
         expect(core.div(6, 0)).toThrow('No se puede dividir por cero');
     })
 })
+
+describe('Pow', () => {
+    test('Deberia 4 ^ 2 = 16', () => {
+        expect(core.pow(4, 2)).toBe(16);
+    })
+
+    test('Deberia 6 ^ 0 = 1', () => {
+        expect(core.pow(6, 0)).toBe(1);
+    })
+})
