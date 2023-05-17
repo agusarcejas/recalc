@@ -25,9 +25,11 @@ describe('Div', () => {
         expect(core.div(4, 2)).toBe(2);
     })
 
-    test('Deberia 6 / 0 = error', () => {
-        expect(core.div(6, 0)).toThrow('No se puede dividir por cero');
-    })
+    test('Debería 6 / 0 = error', () => {
+        const result = core.div(6, 0);
+        expect(result.error).toBe(true);
+        expect(result.message).toBe('No se puede dividir por cero');
+      });
 })
 
 describe('Pow', () => {
