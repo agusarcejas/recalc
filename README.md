@@ -1,25 +1,14 @@
-# ReCalc v1.2.0
+# ReCalc
 
 Calculadora con funciones simples.
 
 ## Dependencias
 
-- node > 18
+- node > 16
 
 ## Comandos
 
 ```bash
-# iniciar/limpiar la db
-npm run seed
-
 # iniciar calculadora
 npm run start
-
-# correr lost test
-npm run test
 ```
-## Integrantes
-- Agustin Cejas
-- Diego Levy
-- Marianela Martinez 
-- Victoria Miranda
