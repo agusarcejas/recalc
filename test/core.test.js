@@ -45,6 +45,9 @@ describe('Pow', () => {
     test('Deberia 6 ^ 0 = 1', () => {
         expect(core.pow(6, 0)).toBe(1);
     })
+    test('La función pow devuelve un número positivo cuando la base es negativa y el exponente es par', () => {
+        expect(core.pow(-2, 2)).toBeGreaterThan(0);
+      });
 })
 
 describe('Mul', () => {
