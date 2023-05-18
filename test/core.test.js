@@ -55,4 +55,9 @@ describe('Mul', () => {
     test('Deberia 6 * 0 = 0', () => {
         expect(core.mul(6, 0)).toBe(0);
     })
+
+    test('La multiplicación con un parámetro negativo y otro positivo debe dar un número negativo', () => {
+        expect(core.mul(-5, 2)).toBeLessThan(0);
+    });
+
 })
