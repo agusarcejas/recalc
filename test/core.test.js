@@ -8,6 +8,11 @@ describe('Subtract', () => {
     test('Deberia 6 - 4 = 2', () => {
         expect(core.sub(6, 4)).toBe(2); 
     })
+
+    test('La resta con segundo parámetro mayor al primero debe dar un número negativo', () => {
+        expect(core.sub(3, 5)).toBeLessThan(0);
+      });
+
 })
 
 describe('Add', () => {
