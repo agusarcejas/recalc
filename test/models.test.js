@@ -28,3 +28,20 @@ describe("History", () => {
         expect(histories[0].Operation.name).toEqual("SUB")
     })
 })
+
+describe('createHistoryEntry', () => {
+    it('Debería guardar una entrada en la tabla History con el segundo parámetro', async () => {
+      const entry = {
+        firstArg: 5,
+        secondArg: 10,
+        operationName: 'ADD',
+        result: 15
+      };
+  
+      const createdEntry = await createHistoryEntry(entry);
+  
+      expect(createdEntry.firstArg).toEqual(entry.firstArg);
+      expect(createdEntry.secondArg).toEqual(entry.secondArg);
+      expect(createdEntry.result).toEqual(entry.result);
+    });
+  });
