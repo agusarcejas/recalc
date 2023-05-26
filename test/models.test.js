@@ -44,4 +44,20 @@ describe('createHistoryEntry', () => {
       expect(createdEntry.secondArg).toEqual(entry.secondArg);
       expect(createdEntry.result).toEqual(entry.result);
     });
+
+    
+    it('debería guardar el atributo "error" en la base de datos en caso de error', async () => {
+          const entry = {
+            firstArg: 10,
+            secondArg: 0, // Segundo argumento para provocar un error de división por cero
+            operationName: 'DIV',
+            result: null // El resultado debería ser null debido al error
+          };
+      
+            const createdEntry = await createHistoryEntry(entry);
+            expect(createdEntry.firstArg).toEqual(entry.firstArg);
+            expect(createdEntry.secondArg).toEqual(entry.secondArg);
+            expect(createdEntry.result).toEqual(entry.result);
+            expect(createdEntry.error).not.toBeNull(); // Verificar que el atributo "error" no sea nulo
+        })
   });
