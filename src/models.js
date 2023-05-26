@@ -20,6 +20,10 @@ export const History = sequelize.define('History', {
     result: {
         type: DataTypes.NUMBER,
         allowNull: true
+    },
+    error: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
 });
 
@@ -40,12 +44,25 @@ export async function createHistoryEntry({ firstArg, secondArg, operationName, r
         }
     });
 
-    return History.create({
-        firstArg,
-        secondArg,
-        result,
-        OperationId: operation.id
-    })
+    try {
+        const createdEntry = await History.create({
+            firstArg,
+            secondArg,
+            result,
+            OperationId: operation.id
+        });
+
+
+        return createdEntry;
+    } catch (error) {
+        return History.create({
+            firstArg,
+            secondArg,
+            result,
+            error: error.message,
+            OperationId: operation.id
+        });
+    }
 }
 
 export function createTables() {
