@@ -1,6 +1,7 @@
 const { seed } = require('../src/seed.js')
 const {
     createHistoryEntry,
+    getAllHistoryEntries,
     History,
     Operation
 } = require('../src/models.js')
@@ -60,4 +61,52 @@ describe('createHistoryEntry', () => {
             expect(createdEntry.result).toEqual(entry.result);
             expect(createdEntry.error).not.toBeNull(); // Verificar que el atributo "error" no sea nulo
         })
+  });
+
+  describe('getAllHistoryEntries', () => {
+    it('debería obtener todo el historial desde la base de datos', async () => {
+      const mockEntries = [
+        {
+          firstArg: 10,
+          secondArg: 5,
+          operationName: 'ADD',
+          result: 15
+        },
+        {
+          firstArg: 8,
+          secondArg: 3,
+          operationName: 'SUB',
+          result: 5
+        },
+        {
+          firstArg: 6,
+          secondArg: 2,
+          operationName: 'MUL',
+          result: 12
+        }
+      ];
+  
+      // Crear las entradas de prueba en la base de datos
+      for(let i = 0; i < mockEntries.length; i++)
+      {
+        await createHistoryEntry(mockEntries[i])
+      }
+
+      // Obtener todo el historial desde la base de datos
+      const historyEntries = await getAllHistoryEntries();
+      
+      // Verificar que el número de entradas obtenidas coincida con el número de entradas de prueba
+      expect(historyEntries).toHaveLength(mockEntries.length);
+      
+      
+      // Verificar que cada entrada coincida con las entradas de prueba
+      historyEntries.forEach((entry, index) => {
+        const mockEntry = mockEntries[index];
+  
+        expect(entry.firstArg).toEqual(mockEntry.firstArg);
+        expect(entry.secondArg).toEqual(mockEntry.secondArg);
+        expect(entry.result).toEqual(mockEntry.result);
+        expect(entry.error).toBeNull();
+      });
+    });
   });
