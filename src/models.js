@@ -73,3 +73,10 @@ export function createTables() {
 export async function getAllHistoryEntries() {
     return History.findAll();
 }
+
+export async function deleteAllHistoryEntries() {
+    await History.destroy({
+        where: {},
+        truncate: true
+    });
+}
