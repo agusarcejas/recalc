@@ -15,10 +15,11 @@ router.get("/sub/:a/:b", async function (req, res) {
     } else {
         const result = core.sub(a, b);
 
-        //await createHistoryEntry({ firstArg: a, operationName: "ADD" }) Comenté esta linea para poder realizar correctamente la actividad 1
+        await createHistoryEntry({ firstArg: a, secondArg: b, result: result, operationName: "SUB" }) 
         return res.send({ result });
     }
 });
+
 
 router.get("/add/:a/:b", async function (req, res) {
     const params = req.params;
@@ -29,9 +30,12 @@ router.get("/add/:a/:b", async function (req, res) {
         res.status(400).send('Uno de los parámetros no es un número');
     } else {
         const result = core.add(a, b);
+
+        await createHistoryEntry({ firstArg: a, secondArg: b, result: result, operationName: "ADD" }) 
         return res.send({ result });
     }
 });
+
 
 
 router.get("/div/:a/:b", async function (req, res) {
