@@ -2,6 +2,7 @@ const { seed } = require('../src/seed.js')
 const {
     createHistoryEntry,
     getAllHistoryEntries,
+    deleteAllHistoryEntries,
     History,
     Operation
 } = require('../src/models.js')
@@ -109,4 +110,50 @@ describe('createHistoryEntry', () => {
         expect(entry.error).toBeNull();
       });
     });
+  });
+
+  describe('Eliminación de historial', () => {  
+    afterEach(async () => {
+      // Restablecer la base de datos después de cada prueba
+      await deleteAllHistoryEntries();
+    });
+  
+    test('Debería borrar todos los datos del historial en la base de datos', async () => {
+      const mockEntries = [
+        {
+          firstArg: 10,
+          secondArg: 5,
+          operationName: 'ADD',
+          result: 15
+        },
+        {
+          firstArg: 8,
+          secondArg: 3,
+          operationName: 'SUB',
+          result: 5
+        },
+        {
+          firstArg: 6,
+          secondArg: 2,
+          operationName: 'MUL',
+          result: 12
+        }
+      ];
+  
+      // Crear las entradas de prueba en la base de datos
+      for (const mockEntry of mockEntries) {
+        await createHistoryEntry(mockEntry);
+      }
+  
+      // Verificar que se hayan creado las entradas en la base de datos
+      const initialEntries = await getAllHistoryEntries();
+      expect(initialEntries).toHaveLength(mockEntries.length);
+  
+      // Borrar todos los datos del historial
+      await deleteAllHistoryEntries();
+  
+      // Verificar que se hayan borrado todas las entradas
+      const remainingEntries = await getAllHistoryEntries();
+      expect(remainingEntries).toHaveLength(0);
+    });
   });
