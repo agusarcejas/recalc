@@ -51,8 +51,6 @@ export async function createHistoryEntry({ firstArg, secondArg, operationName, r
             result,
             OperationId: operation.id
         });
-
-
         return createdEntry;
     } catch (error) {
         return History.create({
@@ -70,4 +68,8 @@ export function createTables() {
         History.sync({ force: true }),
         Operation.sync({ force: true })
     ]);
+}
+
+export async function getAllHistoryEntries() {
+    return History.findAll();
 }
