@@ -57,3 +57,16 @@ describe('Multiplicación con parámetros decimales', () => {
       expect(res.body.message).toBe('No se puede dividir por cero');
     });
   });
+
+  describe('Uno de los parámetros en POW no es un número', () => {
+    test('Debe devolver un mensaje de error y un status 400', async () => {
+      const app = await api.build();
+  
+      const res = await request(app)
+        .get('/api/v1/pow/3/g')
+        .expect(400)
+        .expect('Content-Type', 'text/html; charset=utf-8');
+  
+      expect(res.text).toBe('Uno de los parámetros no es un número');
+    });
+  });
