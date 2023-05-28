@@ -44,3 +44,16 @@ describe('Multiplicación con parámetros decimales', () => {
       expect(res.body.result.toString()).toContain('.');
     });
   });
+
+  describe('División con segundo parámetro igual a 0', () => {
+    test('Debe devolver un mensaje de error y un status 400', async () => {
+      const app = await api.build();
+  
+      const res = await request(app)
+        .get('/api/v1/div/10/0')
+        .expect(400)
+        .expect('Content-Type', 'application/json; charset=utf-8');
+  
+      expect(res.body.message).toBe('No se puede dividir por cero');
+    });
+  });
