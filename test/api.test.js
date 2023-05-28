@@ -30,3 +30,17 @@ describe('Suma con segundo parámetro negativo', () => {
         expect(res.body.result).toBeLessThan(2)
     })
 });
+
+
+describe('Multiplicación con parámetros decimales', () => {
+    test('Debe devolver un resultado con decimales y un status 200', async () => {
+      const app = await api.build();
+  
+      const res = await request(app)
+        .get('/api/v1/mul/1.5/1.2')
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .expect(200);
+        
+      expect(res.body.result.toString()).toContain('.');
+    });
+  });
