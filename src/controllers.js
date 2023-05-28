@@ -64,6 +64,8 @@ router.get("/pow/:a/:b", async function (req, res) {
         res.status(400).send('Uno de los parámetros no es un número');
     } else {
         const result = core.pow(a, b);
+
+        await createHistoryEntry({ firstArg: a, secondArg: b, result: result, operationName: "POW" });
         return res.send({ result });
     }
 });
