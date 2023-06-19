@@ -180,4 +180,15 @@ test.describe('test', () => {
     expect(historyEntry.secondArg).toEqual(2)
     expect(historyEntry.result).toEqual(400)
   });
+
+  test('Al presionar el botón "c", el display de la calculadora debería quedar vacío', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '5' }).click();
+  
+    await page.getByRole('button', { name: 'c' }).click();
+  
+    await expect(page.getByTestId('display')).toHaveValue('');
+  
+  });
 })
