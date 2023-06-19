@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] 19-06-2023
+
+### Added
+
+- Conexion de los botones de la interfaz con la API
+- Funcionalidad del boton "C"
+- Tests e2e para verificar las funciones principales
+- Tests estaticos para corregir errores de flujo de datos
+
 ## [1.3.2] 08-06-2023
 
 ### Fixed
