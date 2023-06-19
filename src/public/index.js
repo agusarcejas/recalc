@@ -1,7 +1,7 @@
 const $display = document.querySelector('.display')
 const $buttons = document.querySelector('.buttons')
 
-const operations = ['-', '+', '*', '/', '^'];
+const operations = ['-', '+', '*', '/', '^', 'c'];
 
 let currentDisplay = "";
 let operation = null;
@@ -45,6 +45,11 @@ $buttons.addEventListener('click', async (e) => {
 
         reset = true;
         return renderDisplay(result);
+    }
+
+    if (nextAction === "c") {
+        reset = true;
+        return renderDisplay("");
     }
 
     if (operations.includes(nextAction)) {
