@@ -29,7 +29,7 @@ $buttons.addEventListener('click', async (e) => {
         }
 
         if (operation === "/") {
-            if (secondArg === 0) {
+            if (secondArg === "0") {
                 result = "Error"
             } else {
                 result = await calculateDiv(firstArg, secondArg)
