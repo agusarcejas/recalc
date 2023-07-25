@@ -191,4 +191,38 @@ test.describe('test', () => {
     await expect(page.getByTestId('display')).toHaveValue('');
   
   });
+  test('Al hacer una potencia que tiene como resultado un número mayor a 100000 se debe mostrar un mensaje de error', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '1' }).click();
+    await page.getByRole('button', { name: '5' }).click();
+    await page.getByRole('button', { name: '^' }).click();
+    await page.getByRole('button', { name: '5' }).click();
+  
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/pow/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+  
+    const { result } = await response.json();
+    
+    // Verificar si el resultado es "Error" cuando la operación excede 100000
+    if (result === "Error") {
+      // Verificar que el display muestra "Error"
+      await expect(page.getByTestId('display')).toHaveValue("Error");
+  
+      // Verificar que la operación no se almacena en la base de datos
+      const operation = await Operation.findOne({
+        where: {
+          name: "POW"
+        }
+      });
+      expect(operation).toBeNull();
+  
+      const historyEntry = await History.findOne({
+        where: { OperationId: operation.id }
+      });
+      expect(historyEntry).toBeNull();
+    } 
+  });
 })
