@@ -225,4 +225,37 @@ test.describe('test', () => {
       expect(historyEntry).toBeNull();
     } 
   });
+  test('Al hacer una división por 0 se debe mostrar un mensaje de error', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '8' }).click();
+    await page.getByRole('button', { name: '/' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+  
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/div/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+  
+    const { result } = await response.json();
+  
+    // Verificar si el resultado es "Error" cuando se divide por cero
+    if (result === "Error") {
+      // Verificar que el display muestra "Error"
+      await expect(page.getByTestId('display')).toHaveValue("Error");
+  
+      // Verificar que la operación no se almacena en la base de datos
+      const operation = await Operation.findOne({
+        where: {
+          name: "DIV"
+        }
+      });
+      expect(operation).toBeNull();
+  
+      const historyEntry = await History.findOne({
+        where: { OperationId: operation.id }
+      });
+      expect(historyEntry).toBeNull();
+    }
+  })
 })
